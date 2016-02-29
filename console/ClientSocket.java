@@ -33,7 +33,7 @@ public class ClientSocket {
                 String userInput = getInputStringCommand();
                 out.println(userInput);
                 String serverInput = in.readLine();
-                log.info(serverInput);
+                //log.info(serverInput);
                 JsonObject json = parser.parse(serverInput).getAsJsonObject();
 
                 String statusHeader = CommandOutputFields.STATUS.toString();
