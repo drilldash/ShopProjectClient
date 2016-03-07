@@ -16,16 +16,16 @@ public class PlayClientScenarioSocket {
         Random rand = new Random(System.currentTimeMillis());
 
         List<String> listOfScriptNames = new ArrayList<>();
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_0.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_1.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_2.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_3.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_4.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_5.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_6.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_7.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_8.script");
-        listOfScriptNames.add("D:/ShopProject/scenario/scenario_i_9.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario0.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario1.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario2.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario3.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario4.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario5.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario6.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario7.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario8.script");
+        listOfScriptNames.add("D:/ShopProject/scenario/scenario9.script");
 
 
 
