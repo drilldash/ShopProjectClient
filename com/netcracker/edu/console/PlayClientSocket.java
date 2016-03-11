@@ -1,4 +1,4 @@
-package console;
+package com.netcracker.edu.console;
 
 import org.apache.log4j.Logger;
 

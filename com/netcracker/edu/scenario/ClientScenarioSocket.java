@@ -1,14 +1,12 @@
-package scenario;
+package com.netcracker.edu.scenario;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
+import com.netcracker.edu.utils.JSONUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
-import utils.PortSettingsNew;
-import utils.ScenarioConstants;
-import utils.commands.CommandOutputFields;
+import com.netcracker.edu.utils.SocketPortSettings;
+import com.netcracker.edu.utils.ScenarioConstants;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,7 +15,7 @@ import java.nio.file.AccessDeniedException;
 
 public class ClientScenarioSocket {
 
-    public static final Logger log = Logger.getLogger("com.netcracker.edu.ishop.client");
+    private static final Logger log = Logger.getLogger("com.netcracker.edu.ishop.client");
 
     public static void execute(String scenarioFileName) throws IOException, ClassNotFoundException {
 
@@ -26,15 +24,16 @@ public class ClientScenarioSocket {
 
 
     private static void executeScenarioScript(String scenarioFilename) throws IOException, AccessDeniedException {
-        JsonParser parser = new JsonParser();
+
         if (ScenarioConstants.PERMIT_SCENARIO_EXECUTION) {
 
             System.out.println("Connecting to server via socket");
 
-            Socket serverSocket = new Socket("localhost", PortSettingsNew.PORT_NUMBER);
-            BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
+            Socket serverSocket = new Socket("localhost", SocketPortSettings.PORT_NUMBER);
+            BufferedReader outputFromSocketServer = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+            PrintWriter inputToSocketServer = new PrintWriter(serverSocket.getOutputStream(), true);
 
+            inputToSocketServer.println("Connected!");
 
             File scenarioFile = new File(scenarioFilename);
             log.info("Path of the scenario file is: " + scenarioFilename);
@@ -53,25 +52,12 @@ public class ClientScenarioSocket {
                             log.info(cmdData);
 
                             //sending to server
-                            out.println(cmdData);
+                            inputToSocketServer.println(cmdData);
 
                             //receiving from server
-                            String serverInput = in.readLine();
+                            String serverOutput = outputFromSocketServer.readLine();
 
-                            JsonObject json = parser.parse(serverInput).getAsJsonObject();
-
-                            String statusHeader = CommandOutputFields.STATUS.toString();
-                            String codeHeader = CommandOutputFields.CODE.toString();
-                            String contentHeader = CommandOutputFields.CONTENT.toString();
-
-                            if (json.has(statusHeader) && json.has(codeHeader) && json.has(contentHeader)) {
-                                String status = "Status: " + json.get(statusHeader).getAsString();
-                                String statusCode = "Code: " + json.get(codeHeader).getAsString();
-                                String content = "Content: " + json.get(contentHeader).getAsString();
-                                log.info(status + "\n" + statusCode + "\n" + content);
-                            } else {
-                                log.info(serverInput);
-                            }
+                            log.info(JSONUtils.createStringStatusFromCommandJsonFormat(serverOutput));
 
 
                         } catch (AccessDeniedException ADE) {
@@ -95,8 +81,8 @@ public class ClientScenarioSocket {
                 e.printStackTrace();
             } finally {
                 LineIterator.closeQuietly(lineIterator);
-                out.close();
-                in.close();
+                inputToSocketServer.close();
+                outputFromSocketServer.close();
                 serverSocket.close();
             }
 

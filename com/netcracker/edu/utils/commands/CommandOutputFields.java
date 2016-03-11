@@ -1,4 +1,4 @@
-package utils.commands;
+package com.netcracker.edu.utils.commands;
 
 public enum CommandOutputFields {
     STATUS {

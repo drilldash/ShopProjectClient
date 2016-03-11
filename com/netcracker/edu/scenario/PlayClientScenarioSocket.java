@@ -1,11 +1,11 @@
-package scenario;
+package com.netcracker.edu.scenario;
 
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class PlayClientScenarioSocket {
-    public static final Logger log = Logger.getLogger("com.netcracker.edu.ishop.client");
+    private static final Logger log = Logger.getLogger("com.netcracker.edu.ishop.client");
 
     public static void main(String[] args) throws Exception {
         cyclicstart();
